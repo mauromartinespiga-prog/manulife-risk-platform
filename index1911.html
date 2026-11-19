@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manulife — Enterprise Risk Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <!-- D3 & TopoJSON for Vector World Map (Slide 3) -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="header-left">
+      <span class="brand-logo">Manulife</span>
+      <span class="platform-subtitle">Enterprise Risk Intelligence Platform</span>
+    </div>
+
+    <div class="header-search">
+      <input type="text" id="globalSearch" placeholder="Search events, sources, markets" />
+      <span class="search-icon">⌕</span>
+    </div>
+
+    <div class="header-right">
+      <div class="header-meta">
+        <div>Verticals M/L/R/D &nbsp;|&nbsp; Tiers A/B/C</div>
+        <div>Q4 2026 &nbsp;|&nbsp; Azure Synced</div>
+      </div>
+      <div class="user-avatar" title="A. Chen — Actuarial Reviewer">AC</div>
+    </div>
+  </header>
+
+  <!-- MAIN SHELL -->
+  <div class="app-shell">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div class="sidebar-section-label">RISK INTELLIGENCE</div>
+      <nav class="sidebar-nav" id="sidebarNav">
+        <button class="nav-item active" data-slide="1">Scenario Overview</button>
+        <button class="nav-item" data-slide="2">Overview Dashboard</button>
+        <button class="nav-item" data-slide="3">Geopolitical &amp; Emerging Risk Map</button>
+        <button class="nav-item" data-slide="4">Regulatory Intelligence Tracker</button>
+        <button class="nav-item" data-slide="5">Mortality/Longevity Implication Panel</button>
+        <button class="nav-item" data-slide="6">Risk Interconnection Graph</button>
+        <button class="nav-item" data-slide="7">Event Detail Page</button>
+      </nav>
+
+      <div class="sidebar-context">
+        <div class="sidebar-section-label">FRAMEWORK CONTEXT</div>
+        <div class="context-box">
+          <p class="context-title">PHASE 1 - ILLUSTRATIVE</p>
+          <p>GLP-1: Canada / US only.</p>
+          <p>Proxy-based monitoring.</p>
+          <p>Human validation required.</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT VIEWPORT -->
+    <main class="main-content" id="mainContent">
+
+      <!-- ==============================================================
+           SLIDE 1 - EXECUTIVE SCENARIO OVERVIEW
+      ============================================================== -->
+      <section class="slide active" id="slide-1">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title">Executive Scenario Overview</h1>
+            <p class="page-subtitle">Translate connected signals into a traceable scenario, insurance implications and human-owned decisions.</p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-event="0142">Open Event Detail</button>
+          </div>
+        </div>
+
+        <!-- SCENARIO FLOW BAR -->
+        <div class="workflow-wrapper">
+          <div class="workflow-label">SCENARIO FLOW</div>
+          <div class="chevron-bar">
+            <div class="chevron completed">1 &nbsp;Signals</div>
+            <div class="chevron active">2 &nbsp;Scenario</div>
+            <div class="chevron">3 &nbsp;Key drivers</div>
+            <div class="chevron">4 &nbsp;Insurance implications</div>
+            <div class="chevron">5 &nbsp;Stress tests / decisions</div>
+          </div>
+        </div>
+
+        <!-- SELECTED SCENARIO SUMMARY BANNER -->
+        <div class="card scenario-banner accent-left-teal">
+          <div>
+            <div class="kicker-teal">SELECTED WORKING SCENARIO &nbsp;|&nbsp; IRE-26-0142</div>
+            <div class="banner-title">GLP-1 adoption and a potential shift in mortality / longevity assumptions</div>
+          </div>
+          <div class="banner-tags">
+            <span class="pill pill-teal">CA / US ONLY</span>
+            <span class="pill pill-amber">MEDIUM</span>
+            <span class="pill pill-slate" id="scenarioStatusBadge">PENDING</span>
+          </div>
+        </div>
+
+        <!-- THREE EQUAL-SIZED SCENARIO CARDS -->
+        <div class="grid-3">
+          <!-- Card 1 -->
+          <div class="card accent-top-steel flex-col-between">
+            <div>
+              <h3 class="card-heading">1 &nbsp;|&nbsp; SIGNALS / INPUTS</h3>
+              <div class="info-block">
+                <div class="info-label">MEDICAL INNOVATION PROXY</div>
+                <p>Illustrative 40% penetration by 2030; source attribution not independently verified.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label">MORTALITY / SURVIVAL EVIDENCE</div>
+                <p>Potential survival response; direction and magnitude require actuarial validation.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label">PORTFOLIO EXPOSURE</div>
+                <p>Canada / US age, product mix and in-force duration remain to be validated.</p>
+              </div>
+            </div>
+            <div class="card-footer-strip strip-slate">GDELT + PROXY FEEDS - PROTOTYPE</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card accent-top-teal flex-col-between">
+            <div>
+              <h3 class="card-heading">2 &nbsp;|&nbsp; SCENARIO SYNTHESIS</h3>
+              <h2 class="synthesis-title">Accelerated GLP-1 adoption</h2>
+              <p class="body-copy">Working hypothesis: broader and sustained uptake could improve survival for relevant cohorts. The resulting effect may differ across protection and annuity business.</p>
+              <div class="meta-stack">
+                <div><strong>Horizon:</strong> 5-10 years (assessment assumption)</div>
+                <div><strong>Confidence:</strong> Medium (event-level)</div>
+              </div>
+            </div>
+            <div class="card-footer-strip strip-amber">HYPOTHESIS - NOT A FORECAST</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card accent-top-amber">
+            <h3 class="card-heading">3 &nbsp;|&nbsp; KEY DRIVERS TO VALIDATE</h3>
+            <div class="driver-item">
+              <div class="driver-title">01 &nbsp;Adoption path and persistence</div>
+              <p>Uptake speed, treatment continuation and cohort reach.</p>
+            </div>
+            <div class="driver-item">
+              <div class="driver-title">02 &nbsp;Mortality response and age mix</div>
+              <p>Magnitude, timing and differences by insured cohort.</p>
+            </div>
+            <div class="driver-item">
+              <div class="driver-title">03 &nbsp;Product mix and policy duration</div>
+              <p>Protection / annuity balances and liability duration.</p>
+            </div>
+            <div class="driver-item">
+              <div class="driver-title">04 &nbsp;Canada / US portfolio concentration</div>
+              <p>Validate actual in-force exposure before quantification.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM ROW: BOX 4 & BOX 5 -->
+        <div class="grid-2">
+          <!-- Box 4 -->
+          <div class="card accent-top-navymid flex-col-between">
+            <div>
+              <h3 class="card-heading">4 &nbsp;|&nbsp; INSURANCE IMPLICATIONS</h3>
+              <div class="subgrid-3">
+                <div class="mini-box box-teal">
+                  <div class="mini-title text-teal">PROTECTION</div>
+                  <p>Potentially favourable if mortality falls.</p>
+                </div>
+                <div class="mini-box box-amber">
+                  <div class="mini-title text-amber">ANNUITY</div>
+                  <p>Potentially adverse as payment duration extends.</p>
+                </div>
+                <div class="mini-box box-slate">
+                  <div class="mini-title text-navy">REINSURANCE</div>
+                  <p>Review longevity assumptions / capacity after validation.</p>
+                </div>
+              </div>
+            </div>
+            <div class="alert-line-red">Net portfolio effect: uncertain. No natural hedge assumed.</div>
+          </div>
+
+          <!-- Box 5 -->
+          <div class="card accent-top-amber">
+            <div class="card-header-flex">
+              <h3 class="card-heading">5 &nbsp;|&nbsp; POTENTIAL STRESS TESTS / DECISIONS</h3>
+              <span class="pill pill-amber">FUTURE CAPABILITY</span>
+            </div>
+            <div class="info-block compact">
+              <div class="info-label">SCENARIO RANGE</div>
+              <p>Compare slower, central and faster uptake paths; quantify only after assumptions are approved.</p>
+            </div>
+            <div class="info-block compact">
+              <div class="info-label">SENSITIVITY</div>
+              <p>Test mortality response by age, product mix and liability duration; assess protection and annuity effects separately.</p>
+            </div>
+            <div class="info-block compact">
+              <div class="info-label">DECISION GATES</div>
+              <p>Validate source and exposure &rarr; Actuarial sets ranges &rarr; owner approves routing / action.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span>Illustrative scenario only. Backend-to-frontend integration is in progress; no live feed or quantified stress test is asserted.</span>
+          <span>Wireframe 1 of 7</span>
+        </footer>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 2 - OVERVIEW DASHBOARD
+      ============================================================== -->
+      <section class="slide" id="slide-2">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title">Overview Dashboard</h1>
+            <p class="page-subtitle">Monitor material signals. Validate exposure. Keep decisions human-led.</p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
+          </div>
+        </div>
+
+        <!-- 4 KPI CARDS -->
+        <div class="grid-4">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="feed:scored" title="Click to open">
+            <div class="kpi-label">ACTIVE SIGNALS (SEV 3+)</div>
+            <div class="kpi-value" id="kpiScored">03</div>
+            <div class="kpi-sub" id="kpiScoredSub">3 of 8 events in current filter</div>
+          </div>
+          <div class="card kpi-card accent-left-amber kpi-clickable" data-kpi="feed:pending" title="Click to open">
+            <div class="kpi-label">PENDING HUMAN REVIEWS</div>
+            <div class="kpi-value" id="kpiPendingReviews">02</div>
+            <div class="kpi-sub">Includes 1 severity-5 validation</div>
+          </div>
+          <div class="card kpi-card accent-left-red kpi-clickable" data-kpi="event:0142:actions" title="Click to open">
+            <div class="kpi-label">OPEN ACTIONS - GLP-1</div>
+            <div class="kpi-value" id="kpiOpenActions">07</div>
+            <div class="kpi-sub" id="kpiOpenActionsSub">Seven open actions on IRE-26-0142</div>
+          </div>
+          <div class="card kpi-card accent-left-navy kpi-clickable" data-kpi="slide:5" title="Click to open">
+            <div class="kpi-label">NET PORTFOLIO EXPOSURE</div>
+            <div class="kpi-value kpi-text">Uncertain</div>
+            <div class="kpi-sub">Directional only; no natural hedge assumed</div>
+          </div>
+        </div>
+
+        <!-- EXECUTIVE ATTENTION REQUIRED -->
+        <div class="exec-banner accent-left-red">
+          <div class="exec-banner-header">
+            <span class="exec-title">EXECUTIVE ATTENTION REQUIRED</span>
+            <span class="exec-sub">Decisions, escalations and pending reviews that need a human owner now</span>
+          </div>
+          <div class="grid-3">
+            <div class="card exec-card clickable" data-event="0142">
+              <div class="kicker-red">DECISION</div>
+              <div class="exec-card-title">Review reinsurance exposure</div>
+              <p>IRE-26-0142 - GLP-1 longevity scenario - CA / US</p>
+              <p class="owner-line">Owner: Reinsurance Team - Due Nov 20</p>
+            </div>
+            <div class="card exec-card clickable" data-event="0140">
+              <div class="kicker-red">CRITICAL - ILLUSTRATIVE EVENT</div>
+              <div class="exec-card-title">Validate respiratory outbreak impact</div>
+              <p>IRE-26-0140 - low confidence; no RI code until validated</p>
+              <p class="owner-line">Owner: Chief Actuary - Due Nov 15</p>
+            </div>
+            <div class="card exec-card clickable" data-event="0142" data-focus="actions">
+              <div class="kicker-red">ESCALATION</div>
+              <div class="exec-card-title">Emerging Risk Committee approval</div>
+              <p>Owner: Risk Owner - Due Nov 25</p>
+              <p class="owner-line">Status: Pending approval</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVE RISK FEED -->
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">Active Risk Feed</h2>
+            <p class="section-sub">8 events - all verticals - all tiers - Q4 2026 (Click any row to inspect)</p>
+          </div>
+          <div class="filter-pills">
+            <button class="filter-btn active" data-filter="all">All (8)</button>
+            <button class="filter-btn" data-filter="scored">Scored Sev 3+ (3)</button>
+            <button class="filter-btn" data-filter="pending">Pending review (2)</button>
+            <button class="filter-btn" data-filter="unscored">Not Scored (5)</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="riskFeedTable">
+            <thead>
+              <tr>
+                <th>Event / signal</th>
+                <th>Source</th>
+                <th>Geography</th>
+                <th>Vert.</th>
+                <th>Classification</th>
+                <th>Confidence</th>
+                <th>Workflow stage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="clickable-row" data-type="scored" data-pending="true" data-event="0142">
+                <td><strong>IRE-26-0142</strong> GLP-1 uptake forecast</td>
+                <td>Illustrative proxy</td>
+                <td>CA / US</td>
+                <td>L-1</td>
+                <td>3 Significant</td>
+                <td>Medium</td>
+                <td><span class="status-amber" data-stage-of="0142">Review - pending</span></td>
+              </tr>
+              <tr class="clickable-row" data-type="scored" data-event="0141">
+                <td><strong>IRE-26-0141</strong> Extreme heat</td>
+                <td>Climate proxy</td>
+                <td>US / HK / SG</td>
+                <td>M</td>
+                <td>4 Severe</td>
+                <td>Medium</td>
+                <td><span class="status-teal" data-stage-of="0141">Action - open</span></td>
+              </tr>
+              <tr class="clickable-row" data-type="scored" data-pending="true" data-event="0140">
+                <td><strong>IRE-26-0140</strong> Respiratory outbreak</td>
+                <td>Health proxy</td>
+                <td>CN / MY</td>
+                <td>M</td>
+                <td>5 Critical</td>
+                <td>Low</td>
+                <td><span class="status-red" data-stage-of="0140">Assessment - validation</span></td>
+              </tr>
+              <tr class="clickable-row" data-type="unscored" data-event="0139">
+                <td><strong>IRE-26-0139 / 0138 / 0137 / 0136 / 0135</strong></td>
+                <td>Proxy sources</td>
+                <td>Various</td>
+                <td>-</td>
+                <td><span class="status-slate">Classified - Not Scored</span></td>
+                <td>N/A</td>
+                <td><span class="status-slate">Classified - Not Scored</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <details class="collapsible">
+          <summary><span><span class="section-title">Scope notes</span></span></summary>
+          <div class="collapsible-body">
+<div class="scope-notes">
+          <p>Scope note: GLP-1 Phase 1 exposure is limited to Canada and the United States. Other event geographies and examples in this platform view are illustrative monitoring scenarios, not GLP-1 exposure assertions.</p>
+          <p>Open-action KPI is scoped to IRE-26-0142 and reconciles to all seven outstanding actions on the Event Detail Page.</p>
+        </div>
+          </div>
+        </details>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span>AI outputs support human decisions; accountable owners approve actions, assumption changes and escalation. Decision support only.</span>
+          <span>Wireframe 2 of 7</span>
+        </footer>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 3 - GEOPOLITICAL & EMERGING RISK MAP (VECTOR SVG MAP)
+      ============================================================== -->
+      <section class="slide" id="slide-3">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title">Geopolitical &amp; Emerging Risk Map</h1>
+            <p class="page-subtitle">Locate emerging signals. Separate geographic reach from validated portfolio exposure.</p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
+          </div>
+        </div>
+
+        <div class="disclaimer-bar">
+          Phase 1 scope: GLP-1 applies to Canada and the United States only. Other market labels below relate to illustrative platform events, not GLP-1 exposure.
+        </div>
+
+        <div class="grid-3">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="feed:all" title="Click to open">
+            <div class="kpi-label">MAPPED EVENT GEOGRAPHIES</div>
+            <div class="kpi-value kpi-med">08 markets</div>
+            <div class="kpi-sub">Across illustrative platform events</div>
+          </div>
+          <div class="card kpi-card accent-left-amber kpi-clickable" data-kpi="feed:scored" title="Click to open">
+            <div class="kpi-label">MATERIAL MONITORED SIGNALS</div>
+            <div class="kpi-value" id="mapScored">03</div>
+            <div class="kpi-sub" id="mapPendingSub">Severity 3+ - two pending human reviews</div>
+          </div>
+          <div class="card kpi-card accent-left-navy">
+            <div class="kpi-label">COVERAGE IS NOT EXPOSURE</div>
+            <div class="kpi-value kpi-med">Tier A/B/C</div>
+            <div class="kpi-sub">Relative weights only; net exposure uncertain</div>
+          </div>
+        </div>
+
+        <!-- MAP + FOCUS PANEL -->
+        <div class="map-layout">
+          <div class="map-panel">
+            <div class="map-panel-header">
+              <span class="kicker-navy">GLOBAL EVENT GEOGRAPHIES</span>
+              <div class="map-controls">
+                <button class="map-btn" id="zoomInBtn" title="Zoom In">+</button>
+                <button class="map-btn" id="zoomOutBtn" title="Zoom Out">&minus;</button>
+                <button class="map-btn" id="resetZoomBtn" title="Reset View">Reset</button>
+              </div>
+            </div>
+            <div id="vectorWorldMap" class="vector-map-container"></div>
+            <div class="map-legend">
+              <div class="legend-item"><span class="dot dot-teal"></span> <strong>GLP-1 Phase 1: CA / US</strong></div>
+              <div class="legend-item"><span class="dot dot-amber"></span> Other markers: illustrative event geographies</div>
+              <div class="legend-item map-hint">Click a marker to inspect</div>
+            </div>
+          </div>
+
+          <!-- DYNAMIC MARKET FOCUS PANEL -->
+          <div class="card accent-top-red flex-col-between" id="marketFocusPanel">
+            <div>
+              <div class="kicker-slate" id="focusRegionKicker">ILLUSTRATIVE MARKET EVENT - CHINA / MALAYSIA</div>
+              <h2 class="focus-title" id="focusEventTitle">IRE-26-0140 - Respiratory outbreak</h2>
+              <p class="body-copy" id="focusDesc1">Severity 5 Critical / unvalidated. Mortality stress scenario; low confidence. Severity is not a probability or loss estimate.</p>
+              <p class="body-copy" id="focusDesc2">Required human gate: validate the health proxy and mapped product exposure with the designated risk owner. No RI code until validated.</p>
+            </div>
+            <div>
+              <div class="focus-next-stage" id="focusNextStage">Next stage: Signal &rarr; Assessment</div>
+              <button class="btn btn-teal-sm mt-10" id="focusOpenBtn" data-event="0140">Open event &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">Market-linked signals + actions</h2>
+            <p class="section-sub">Coverage indicators are not additive; IRE-26-0142 actions reconcile to the seven-item Event Detail Page register.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event / signal</th>
+                <th>Markets</th>
+                <th>Human gate</th>
+                <th>Owner</th>
+                <th>Due</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="clickable-row" data-event="0140">
+                <td>IRE-26-0140 Respiratory outbreak</td>
+                <td>CN / MY - B</td>
+                <td>Validate health proxy and exposure</td>
+                <td>Chief Actuary</td>
+                <td>Nov 15</td>
+                <td><span class="badge-pill badge-red">In progress</span></td>
+              </tr>
+              <tr class="clickable-row" data-event="0142">
+                <td>IRE-26-0142 GLP-1 uptake</td>
+                <td>CA / US - A</td>
+                <td>Validate CA / US exposure before RI-2</td>
+                <td>Market Risk</td>
+                <td>Nov 15</td>
+                <td><span class="badge-pill badge-teal">In progress</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span>Other market examples are illustrative; GLP-1 Phase 1 scope is Canada and US only.</span>
+          <span>Wireframe 3 of 7</span>
+        </footer>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 4 - REGULATORY INTELLIGENCE TRACKER
+      ============================================================== -->
+      <section class="slide" id="slide-4">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title">Regulatory Intelligence Tracker</h1>
+            <p class="page-subtitle">Track policy implications and monitoring scenarios. Verify obligations before acting.</p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
+          </div>
+        </div>
+
+        <div class="disclaimer-bar">
+          Monitoring scenarios only - not an obligations register. Legal status and applicability must be verified by Compliance / Legal.
+        </div>
+
+        <div class="grid-3">
+          <div class="card kpi-card accent-left-teal">
+            <div class="kpi-label">POLICY-LINKED DATASET EVENT</div>
+            <div class="kpi-value">01 / 08</div>
+            <div class="kpi-sub">IRE-26-0139 retirement reform scenario</div>
+          </div>
+          <div class="card kpi-card accent-left-amber">
+            <div class="kpi-label">SEPARATE MONITORING SCENARIOS</div>
+            <div class="kpi-value">04</div>
+            <div class="kpi-sub">Illustrative watch items - not scored events</div>
+          </div>
+          <div class="card kpi-card accent-left-red">
+            <div class="kpi-label">VERIFIED OBLIGATIONS</div>
+            <div class="kpi-value kpi-text">Not established</div>
+            <div class="kpi-sub">No enacted rule or verified deadline asserted</div>
+          </div>
+        </div>
+
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">Illustrative regulatory watch register</h2>
+            <p class="section-sub">Potential implications only - verification required by Compliance / Legal before action.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Watch item</th>
+                <th>Market</th>
+                <th>Potential implication</th>
+                <th>Status / legal basis</th>
+                <th>Owner</th>
+                <th>Next checkpoint / due</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MON-POL Retirement policy changes</td>
+                <td>JP / CA</td>
+                <td>Annuity demand / product mix</td>
+                <td>Unverified scenario</td>
+                <td>Compliance + Market Risk</td>
+                <td>Verify primary source - TBD</td>
+              </tr>
+              <tr>
+                <td>MON-CLM Climate scenario disclosure</td>
+                <td>US / HK / SG</td>
+                <td>Possible scenario-reporting scope</td>
+                <td>Monitoring only</td>
+                <td>Compliance + Climate Risk</td>
+                <td>Confirm scope / status - TBD</td>
+              </tr>
+              <tr>
+                <td>MON-MED Medical innovation assumptions</td>
+                <td>CA / US</td>
+                <td>Possible assumption governance</td>
+                <td>Monitoring only</td>
+                <td>Actuarial + Compliance</td>
+                <td>Check evidence - TBD</td>
+              </tr>
+              <tr>
+                <td>MON-CAP Capital / spread sensitivity</td>
+                <td>CA / US</td>
+                <td>Possible investment governance</td>
+                <td>Monitoring only</td>
+                <td>Investment Risk + Legal</td>
+                <td>Verify issuance - TBD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2-asym">
+          <div>
+            <h2 class="section-title">Verification &amp; approval pathway</h2>
+            <p class="section-sub">Human-led - no automatic obligation or escalation</p>
+            <div class="subgrid-3 mt-10">
+              <div class="card accent-top-amber">
+                <div class="step-title">01 Verify source</div>
+                <p class="step-desc">Compliance / Legal checks primary source text</p>
+                <div class="status-amber mt-8">Pending</div>
+              </div>
+              <div class="card accent-top-border">
+                <div class="step-title">02 Assess applicability</div>
+                <p class="step-desc">Market owner validates products and entities</p>
+                <div class="status-slate mt-8">Gated</div>
+              </div>
+              <div class="card accent-top-border">
+                <div class="step-title">03 Approve response</div>
+                <p class="step-desc">Accountable owner approves; ERM controls escalation</p>
+                <div class="status-slate mt-8">Gated</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="section-title">Actions &amp; tasks</h2>
+            <div class="table-wrap mt-24">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Owner</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="policyTasksBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span>Monitoring scenarios are not legal obligations until verified by the accountable function.</span>
+          <span>Wireframe 4 of 7</span>
+        </footer>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 5 - MORTALITY / LONGEVITY IMPLICATION PANEL
+      ============================================================== -->
+      <section class="slide" id="slide-5">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title">Mortality / Longevity Implication Panel</h1>
+            <p class="page-subtitle">Compare directional effects across protection and annuity books, with explicit validation gates.</p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
+          </div>
+        </div>
+
+        <div class="disclaimer-bar">
+          Phase 1 GLP-1 market scope is Canada and the United States only. Other event rows are illustrative scenarios; non-mortality items are classified separately.
+        </div>
+
+        <div class="grid-3">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="event:0142" title="Click to open">
+            <div class="kpi-label">SCORED LONGEVITY SCENARIO</div>
+            <div class="kpi-value">01</div>
+            <div class="kpi-sub">GLP-1 - L-1 - Medium - pending review</div>
+          </div>
+          <div class="card kpi-card accent-left-amber kpi-clickable" data-kpi="feed:scored" title="Click to open">
+            <div class="kpi-label">SCORED MORTALITY STRESS</div>
+            <div class="kpi-value">02</div>
+            <div class="kpi-sub">Extreme heat + respiratory outbreak</div>
+          </div>
+          <div class="card kpi-card accent-left-navy">
+            <div class="kpi-label">NET PORTFOLIO EFFECT</div>
+            <div class="kpi-value kpi-text">Uncertain</div>
+            <div class="kpi-sub">Directional only - no natural hedge assumed</div>
+          </div>
+        </div>
+
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">Event-to-product implication matrix</h2>
+            <p class="section-sub">Severity is distinct from product direction; rate and demographic-only items are not mortality-scored.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event / vertical</th>
+                <th>Mortality dir.</th>
+                <th>Protection</th>
+                <th>Annuity / other</th>
+                <th>Severity / class</th>
+                <th>Human disposition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="clickable-row" data-event="0142">
+                <td>IRE-26-0142 GLP-1 (CA / US)</td>
+                <td>Down</td>
+                <td>Favourable</td>
+                <td>Adverse</td>
+                <td>3 / Medium</td>
+                <td>Pending - RI-2 only after validation</td>
+              </tr>
+              <tr class="clickable-row" data-event="0141">
+                <td>IRE-26-0141 Extreme heat</td>
+                <td>Up</td>
+                <td>Adverse</td>
+                <td>Conditional favourable</td>
+                <td>4 / Medium</td>
+                <td>Reviewed - human assessment</td>
+              </tr>
+              <tr class="clickable-row" data-event="0140">
+                <td>IRE-26-0140 Outbreak</td>
+                <td>Up?</td>
+                <td>Unvalidated</td>
+                <td>Potential adverse</td>
+                <td>5 / Low</td>
+                <td>Pending - no RI code until validated</td>
+              </tr>
+              <tr class="clickable-row" data-event="0139">
+                <td>IRE-26-0139 Retirement reform</td>
+                <td>N/A</td>
+                <td>No M/L direction</td>
+                <td>Policy / demand context</td>
+                <td><span class="status-slate">Classified - Not Scored</span></td>
+                <td>Contextual only - no mortality score</td>
+              </tr>
+              <tr class="clickable-row" data-event="0138">
+                <td>IRE-26-0138 Credit spreads</td>
+                <td>N/A</td>
+                <td>No effect inferred</td>
+                <td>Investment sensitivity</td>
+                <td><span class="status-slate">Classified - Not Scored</span></td>
+                <td>Investment risk view - not M/L-scored</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2-asym">
+          <details class="collapsible">
+            <summary><span><span class="section-title">Verification &amp; approval pathway</span><span class="section-sub">Human-led - no automatic obligation or escalation</span></span></summary>
+            <div class="collapsible-body"><div class="subgrid-3">
+              <div class="card accent-top-amber">
+                <div class="step-title">01 Verify source</div>
+                <p class="step-desc">Compliance / Legal checks primary source text</p>
+                <div class="status-amber mt-8">Pending</div>
+              </div>
+              <div class="card accent-top-border">
+                <div class="step-title">02 Assess applicability</div>
+                <p class="step-desc">Market owner validates products and entities</p>
+                <div class="status-slate mt-8">Gated</div>
+              </div>
+              <div class="card accent-top-border">
+                <div class="step-title">03 Approve response</div>
+                <p class="step-desc">Accountable owner approves; ERM controls escalation</p>
+                <div class="status-slate mt-8">Gated</div>
+              </div>
+            </div></div>
+          </details>
+
+          <div>
+            <h2 class="section-title">Actions &amp; tasks</h2>
+            <p class="section-sub">Selected linked tasks; full seven-action register on Event Detail Page.</p>
+            <div class="table-wrap mt-10">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Owner</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="linkedTasksBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span>Non-M/L events remain Classified - Not Scored; human owners control all actions and escalation.</span>
+          <span>Wireframe 5 of 7</span>
+        </footer>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 6 - RISK INTERCONNECTION GRAPH
+      ============================================================== -->
+      <section class="slide" id="slide-6">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title">Risk Interconnection Graph</h1>
+            <p class="page-subtitle">Explore hypothesized transmission paths. Keep relationships distinct from proven correlations.</p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
+          </div>
+        </div>
+
+        <div class="disclaimer-bar">
+          GLP-1 Phase 1 scope: Canada / US. Other event markets and pathways are illustrative; demographic-only and rate events remain Classified - Not Scored.
+        </div>
+
+        <div class="grid-3">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="feed:scored" title="Click to open">
+            <div class="kpi-label">SCORED EVENT NODES</div>
+            <div class="kpi-value" id="graphScored">03 / 08</div>
+            <div class="kpi-sub">Three scored nodes in this view</div>
+          </div>
+          <div class="card kpi-card accent-left-amber">
+            <div class="kpi-label">HYPOTHESIZED PATHWAYS</div>
+            <div class="kpi-value">05</div>
+            <div class="kpi-sub">H4 / H5 are contextual, not scored</div>
+          </div>
+          <div class="card kpi-card accent-left-red kpi-clickable" data-kpi="feed:pending" title="Click to open">
+            <div class="kpi-label">PENDING EVENT VALIDATIONS</div>
+            <div class="kpi-value" id="graphPending">02</div>
+            <div class="kpi-sub">Human gates remain open</div>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE PATHWAY GRAPH + INSPECTOR -->
+        <div class="graph-layout">
+          <div>
+            <div class="graph-col-headers">
+              <span>EVENT SCENARIOS</span>
+              <span>TRANSMISSION HYPOTHESIS</span>
+              <span>INSURANCE IMPLICATION</span>
+            </div>
+
+            <div class="graph-rows" id="graphRows">
+              <div class="graph-row selected" data-hyp="H1">
+                <div class="node-navy" data-event="0142" title="Open event IRE-26-0142">0142 GLP-1 uptake</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-teal">H1 - Survival improvement</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-white">Protection / annuity effects</div>
+              </div>
+              <div class="graph-row" data-hyp="H2">
+                <div class="node-navy" data-event="0141" title="Open event IRE-26-0141">0141 Extreme heat</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-teal">H2 - Higher mortality</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-white">Protection adverse</div>
+              </div>
+              <div class="graph-row" data-hyp="H3">
+                <div class="node-navy" data-event="0140" title="Open event IRE-26-0140">0140 Respiratory outbreak</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-teal">H3 - Mortality stress</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-white">Annuity stress - conditional</div>
+              </div>
+              <div class="graph-row" data-hyp="H4">
+                <div class="node-navy" data-event="0139" title="Open event IRE-26-0139">0139 Retirement reform</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-slate">H4 - Policy / demand</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-muted">Classified - Not Scored</div>
+              </div>
+              <div class="graph-row" data-hyp="H5">
+                <div class="node-navy" data-event="0138" title="Open event IRE-26-0138">0138 Credit spreads</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-slate">H5 - Investment sensitivity</div>
+                <div class="dashed-arrow"></div>
+                <div class="node-muted">Classified - Not Scored</div>
+              </div>
+            </div>
+            <p class="italic-caption">Click any pathway row above to inspect. Dashed arrows are directional hypotheses only. H4 / H5 are contextual pathways and are not assigned mortality scores.</p>
+          </div>
+
+          <!-- SELECTED HYPOTHESIS PANEL -->
+          <div class="card accent-top-teal" id="hypothesisPanel">
+            <div class="kicker-slate" id="hypKicker">H1 - SELECTED DIRECTIONAL HYPOTHESIS</div>
+            <h2 class="focus-title" id="hypTitle">IRE-26-0142 - CA / US</h2>
+            <p class="body-copy" id="hypBody">Potential survival improvement may reduce protection claims while increasing annuity payment duration. This does not establish a net hedge.</p>
+            <div class="meta-stack mt-10" id="hypMeta">
+              <div><strong>Confidence:</strong> Medium (event-level)</div>
+              <div><strong>Relationship:</strong> Hypothesis / directional</div>
+              <div><strong>Strength:</strong> Not estimated</div>
+              <div><strong>Net effect:</strong> Uncertain</div>
+            </div>
+            <p class="body-copy mt-10" id="hypFoot">Shared geography or a plausible pathway is not evidence of dependence.</p>
+            <button class="btn btn-teal-sm mt-10" id="hypOpenBtn" data-event="0142">Open event &rarr;</button>
+          </div>
+        </div>
+
+        <details class="collapsible">
+          <summary><span><span class="section-title">Relationship hypothesis register and actions</span><span class="section-sub">2 tracked paths</span></span></summary>
+          <div class="collapsible-body">
+<div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Path</th>
+                <th>Event &rarr; transmission</th>
+                <th>Decision gate</th>
+                <th>Owner</th>
+                <th>Due</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="clickable-row" data-event="0142">
+                <td>H1</td>
+                <td>0142 GLP-1 &rarr; survival</td>
+                <td>Validate CA / US exposure before RI-2</td>
+                <td>Market Risk</td>
+                <td>Nov 15</td>
+                <td><span class="badge-pill badge-teal">In progress</span></td>
+              </tr>
+              <tr class="clickable-row" data-event="0140">
+                <td>H3</td>
+                <td>0140 Outbreak &rarr; mortality stress</td>
+                <td>No RI code until health proxy is validated</td>
+                <td>Chief Actuary</td>
+                <td>Nov 15</td>
+                <td><span class="badge-pill badge-red">In progress</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          </div>
+        </details>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span>H4 / H5 are contextual pathways; Classified - Not Scored.</span>
+          <span>Wireframe 6 of 7</span>
+        </footer>
+      </section>
+
+      <!-- ==============================================================
+           SLIDE 7 - DETAILED GLP-1 EVENT ASSESSMENT
+      ============================================================== -->
+      <section class="slide" id="slide-7">
+        <div class="page-header">
+          <div>
+            <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
+            <h1 class="page-title" id="eventTitle">Event Detail Page - IRE-26-0142</h1>
+            <p class="page-subtitle"><span id="eventBreadcrumb">Overview / Active Risk Feed / Selected event IRE-26-0142 / Review - pending</span></p>
+          </div>
+          <div class="page-actions">
+            <span class="pill pill-teal">Phase 1 / proxy data</span>
+            <button class="btn btn-navy" data-goto="2">Back to feed</button>
+          </div>
+        </div>
+
+        <!-- STAGE BAR: rendered from the selected event's actual stage (hidden for classified items) -->
+        <div class="workflow-wrapper" id="eventStageWrap">
+          <div class="workflow-label" id="eventStageLabel">CURRENT EVENT STAGE: REVIEW</div>
+          <div class="chevron-bar" id="eventStageBar"></div>
+        </div>
+        <div class="disclaimer-bar" id="eventStageNote" hidden></div>
+
+        <div id="eventDetail0142">
+        <!-- 5-STAGE EVENT-TO-DECISION CARDS -->
+        <div class="grid-5">
+          <div class="card accent-top-teal">
+            <div class="kicker-slate">1 EXTERNAL SIGNAL</div>
+            <div class="stage-card-title">Framework example</div>
+            <p>Illustrative 40% penetration among adults with obesity by 2030. Source attribution is illustrative and not independently verified.</p>
+          </div>
+          <div class="card accent-top-teal">
+            <div class="kicker-slate">2 M/L IMPACT</div>
+            <div class="stage-card-title">Mortality down</div>
+            <p>Protection may be favourable; annuity exposure may be adverse as longevity extends. Age breakdown remains unspecified.</p>
+          </div>
+          <div class="card accent-top-teal">
+            <div class="kicker-slate">3 INSURANCE EXPOSURE</div>
+            <div class="stage-card-title">Net uncertain</div>
+            <p>Canada / US only: validate age, product mix, policy duration and actual in-force exposure.</p>
+          </div>
+          <div class="card accent-top-teal">
+            <div class="kicker-slate">4 REINSURANCE IMPLICATION</div>
+            <div class="stage-card-title">RI-2 only</div>
+            <p>Assess Canada / US longevity assumptions and potential swap capacity only after exposure validation and human approval.</p>
+          </div>
+          <div class="card accent-top-teal">
+            <div class="kicker-slate">5 MANAGEMENT CONSIDERATION</div>
+            <div class="stage-card-title">Human-owned</div>
+            <p>Validate source and exposure with the risk owner. ERM determines executive / Board routing.</p>
+          </div>
+        </div>
+
+        <!-- SUB-SCORE TRACEABILITY + ACTIONS TABLE -->
+        <div class="grid-2-equal">
+          <div>
+            <h2 class="section-title">Sub-score traceability</h2>
+            <p class="section-sub">Updated C-3 central score = 3; plausible range = 3-4.</p>
+            <div class="table-wrap mt-8">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Criterion</th>
+                    <th>Score</th>
+                    <th>Rationale / note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Geographic exposure C-1</td>
+                    <td>5 / 5</td>
+                    <td>Tier A; Canada / US relative weights</td>
+                  </tr>
+                  <tr>
+                    <td>Product line impact C-2</td>
+                    <td>4 / 5</td>
+                    <td>Protection + annuity mix; unvalidated</td>
+                  </tr>
+                  <tr>
+                    <td>Assumption magnitude C-3</td>
+                    <td><strong class="text-teal">3 / 5</strong></td>
+                    <td>Central = 3; plausible range = 3-4</td>
+                  </tr>
+                  <tr>
+                    <td>Time horizon C-4</td>
+                    <td>2 / 5</td>
+                    <td>5-10 years; lower near-term urgency</td>
+                  </tr>
+                  <tr>
+                    <td>Likelihood C-5</td>
+                    <td>3 / 5</td>
+                    <td>Confidence remains separate</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <details class="collapsible">
+          <summary><span><span class="section-title">Scoring trace &amp; assessment review</span><span class="section-sub">How the central score was derived</span></span></summary>
+          <div class="collapsible-body">
+<div class="trace-box">
+              <p><strong>TRACE: Central impact = floor((C-2 + C-3)/2) = floor((4+3)/2) = 3; plausible impact range = 3-4.</strong></p>
+              <p>Likelihood C-5 = 3; central raw index = 3 &times; 3 = 9/25; plausible raw range = 9-12/25.</p>
+              <p>Current RISC lookup: central class 3 Significant; plausible class range 3-4. Confirm against approved lookup matrix.</p>
+            </div>
+
+            <div class="card mt-8">
+              <div class="kicker-navy">ASSESSMENT REVIEW</div>
+              <p class="small-copy">C-4 = 2 assumes lower scores represent longer horizons; 5-10 years is not near-term.</p>
+              <p class="small-copy">Confirm rubric direction; reassess if the horizon moves inside 5 years.</p>
+            </div>
+          </div>
+        </details>
+          </div>
+
+          <div>
+            <div class="section-header-row no-margin">
+              <div>
+                <h2 class="section-title">Actions &amp; tasks for this event</h2>
+                <p class="section-sub" id="actionsSubtitle">Seven open actions - one event-level register across all screens</p>
+              </div>
+              <button class="btn btn-teal-sm" id="approveAssessmentBtn">Approve Assessment (A. Chen)</button>
+            </div>
+
+            <div class="table-wrap mt-8">
+              <table class="data-table" id="eventActionsTable">
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Owner</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="eventActionsBody"></tbody>
+              </table>
+            </div>
+
+            <details class="collapsible">
+          <summary><span><span class="section-title">Assessment history</span><span class="section-sub">Version log</span></span></summary>
+          <div class="collapsible-body">
+<ul class="history-list" id="assessmentHistoryList">
+                <li>v1.0 proxy assessment generated; C-3 updated to 3 (range 3-4).</li>
+                <li>C-4 retained at 2 pending rubric confirmation; reviewer A. Chen; archive only after closure.</li>
+              </ul>
+          </div>
+        </details>
+          </div>
+        </div>
+
+        </div>
+
+        <!-- OTHER EVENTS: summary + linked actions (same hub page, driven by the event registry) -->
+        <div id="eventDetailGeneric" hidden>
+          <div class="grid-2-equal">
+            <div class="card accent-top-teal" id="genericFactsCard">
+              <div class="kicker-slate" id="genKicker"></div>
+              <h2 class="focus-title" id="genTitle"></h2>
+              <div class="meta-stack" id="genMeta"></div>
+              <p class="body-copy mt-10" id="genNote"></p>
+            </div>
+            <div>
+              <h2 class="section-title">Actions &amp; tasks for this event</h2>
+              <p class="section-sub" id="genActionsSubtitle"></p>
+              <div class="table-wrap mt-8">
+                <table class="data-table" id="genericActionsTable">
+                  <thead>
+                    <tr><th>Action</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+                  </thead>
+                  <tbody id="genericActionsBody"></tbody>
+                </table>
+              </div>
+              <p class="italic-caption" id="genActionsEmpty" hidden>No linked actions in the Phase 1 wireframes.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>UPDATED 12 NOV 2026</span>
+          <span id="footerOpenActions">GLP-1 Phase 1 markets: Canada / US only. Seven open actions remain human-owned.</span>
+          <span>Wireframe 7 of 7</span>
+        </footer>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
