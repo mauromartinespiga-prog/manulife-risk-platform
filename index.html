@@ -22,7 +22,7 @@
     </div>
 
     <div class="header-search">
-      <input type="text" id="globalSearch" placeholder="Search events, sources, markets (e.g., GLP-1, CA, IRE-26-0140)..." />
+      <input type="text" id="globalSearch" placeholder="Search events, sources, markets" />
       <span class="search-icon">⌕</span>
     </div>
 
@@ -48,7 +48,7 @@
         <button class="nav-item" data-slide="4">Regulatory Intelligence Tracker</button>
         <button class="nav-item" data-slide="5">Mortality/Longevity Implication Panel</button>
         <button class="nav-item" data-slide="6">Risk Interconnection Graph</button>
-        <button class="nav-item" data-slide="7">Audit/Review Queue <span class="badge-count" id="queueBadge">(2)</span></button>
+        <button class="nav-item" data-slide="7">Event Detail Page</button>
       </nav>
 
       <div class="sidebar-context">
@@ -77,7 +77,7 @@
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
-            <button class="btn btn-navy" data-goto="2">Open scenario register</button>
+            <button class="btn btn-navy" data-event="0142">Open Event Detail</button>
           </div>
         </div>
 
@@ -228,39 +228,28 @@
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
-            <button class="btn btn-navy" onclick="exportCSV('assessment-log')">Export assessment log</button>
-          </div>
-        </div>
-
-        <div class="workflow-wrapper">
-          <div class="workflow-label">WORKFLOW</div>
-          <div class="chevron-bar">
-            <div class="chevron completed">1 &nbsp;Signal</div>
-            <div class="chevron completed">2 &nbsp;Assessment</div>
-            <div class="chevron active">3 &nbsp;Review</div>
-            <div class="chevron">4 &nbsp;Action</div>
-            <div class="chevron">5 &nbsp;Closure</div>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
           </div>
         </div>
 
         <!-- 4 KPI CARDS -->
         <div class="grid-4">
-          <div class="card kpi-card accent-left-teal">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="feed:scored" title="Click to open">
             <div class="kpi-label">ACTIVE SIGNALS (SEV 3+)</div>
-            <div class="kpi-value">04</div>
-            <div class="kpi-sub">4 of 8 events in current filter</div>
+            <div class="kpi-value" id="kpiScored">03</div>
+            <div class="kpi-sub" id="kpiScoredSub">3 of 8 events in current filter</div>
           </div>
-          <div class="card kpi-card accent-left-amber">
+          <div class="card kpi-card accent-left-amber kpi-clickable" data-kpi="feed:pending" title="Click to open">
             <div class="kpi-label">PENDING HUMAN REVIEWS</div>
             <div class="kpi-value" id="kpiPendingReviews">02</div>
             <div class="kpi-sub">Includes 1 severity-5 validation</div>
           </div>
-          <div class="card kpi-card accent-left-red">
+          <div class="card kpi-card accent-left-red kpi-clickable" data-kpi="event:0142:actions" title="Click to open">
             <div class="kpi-label">OPEN ACTIONS - GLP-1</div>
-            <div class="kpi-value" id="kpiOpenActions">05</div>
-            <div class="kpi-sub">Matches five actions on IRE-26-0142</div>
+            <div class="kpi-value" id="kpiOpenActions">07</div>
+            <div class="kpi-sub" id="kpiOpenActionsSub">Seven open actions on IRE-26-0142</div>
           </div>
-          <div class="card kpi-card accent-left-navy">
+          <div class="card kpi-card accent-left-navy kpi-clickable" data-kpi="slide:5" title="Click to open">
             <div class="kpi-label">NET PORTFOLIO EXPOSURE</div>
             <div class="kpi-value kpi-text">Uncertain</div>
             <div class="kpi-sub">Directional only; no natural hedge assumed</div>
@@ -274,19 +263,19 @@
             <span class="exec-sub">Decisions, escalations and pending reviews that need a human owner now</span>
           </div>
           <div class="grid-3">
-            <div class="card exec-card clickable" data-goto="7">
+            <div class="card exec-card clickable" data-event="0142">
               <div class="kicker-red">DECISION</div>
               <div class="exec-card-title">Review reinsurance exposure</div>
               <p>IRE-26-0142 - GLP-1 longevity scenario - CA / US</p>
               <p class="owner-line">Owner: Reinsurance Team - Due Nov 20</p>
             </div>
-            <div class="card exec-card clickable" data-goto="3">
+            <div class="card exec-card clickable" data-event="0140">
               <div class="kicker-red">CRITICAL - ILLUSTRATIVE EVENT</div>
               <div class="exec-card-title">Validate respiratory outbreak impact</div>
               <p>IRE-26-0140 - low confidence; no RI code until validated</p>
               <p class="owner-line">Owner: Chief Actuary - Due Nov 15</p>
             </div>
-            <div class="card exec-card clickable" data-goto="4">
+            <div class="card exec-card clickable" data-event="0142" data-focus="actions">
               <div class="kicker-red">ESCALATION</div>
               <div class="exec-card-title">Emerging Risk Committee approval</div>
               <p>Owner: Risk Owner - Due Nov 25</p>
@@ -304,6 +293,7 @@
           <div class="filter-pills">
             <button class="filter-btn active" data-filter="all">All (8)</button>
             <button class="filter-btn" data-filter="scored">Scored Sev 3+ (3)</button>
+            <button class="filter-btn" data-filter="pending">Pending review (2)</button>
             <button class="filter-btn" data-filter="unscored">Not Scored (5)</button>
           </div>
         </div>
@@ -322,34 +312,34 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="clickable-row" data-type="scored" data-goto="7">
+              <tr class="clickable-row" data-type="scored" data-pending="true" data-event="0142">
                 <td><strong>IRE-26-0142</strong> GLP-1 uptake forecast</td>
                 <td>Illustrative proxy</td>
                 <td>CA / US</td>
                 <td>L-1</td>
                 <td>3 Significant</td>
                 <td>Medium</td>
-                <td><span class="status-amber">Review - pending</span></td>
+                <td><span class="status-amber" data-stage-of="0142">Review - pending</span></td>
               </tr>
-              <tr class="clickable-row" data-type="scored" data-goto="5">
+              <tr class="clickable-row" data-type="scored" data-event="0141">
                 <td><strong>IRE-26-0141</strong> Extreme heat</td>
                 <td>Climate proxy</td>
                 <td>US / HK / SG</td>
                 <td>M</td>
                 <td>4 Severe</td>
                 <td>Medium</td>
-                <td><span class="status-teal">Action - open</span></td>
+                <td><span class="status-teal" data-stage-of="0141">Action - open</span></td>
               </tr>
-              <tr class="clickable-row" data-type="scored" data-goto="3">
+              <tr class="clickable-row" data-type="scored" data-pending="true" data-event="0140">
                 <td><strong>IRE-26-0140</strong> Respiratory outbreak</td>
                 <td>Health proxy</td>
                 <td>CN / MY</td>
                 <td>M</td>
                 <td>5 Critical</td>
                 <td>Low</td>
-                <td><span class="status-red">Assessment - validation</span></td>
+                <td><span class="status-red" data-stage-of="0140">Assessment - validation</span></td>
               </tr>
-              <tr class="clickable-row" data-type="unscored" data-goto="4">
+              <tr class="clickable-row" data-type="unscored" data-event="0139">
                 <td><strong>IRE-26-0139 / 0138 / 0137 / 0136 / 0135</strong></td>
                 <td>Proxy sources</td>
                 <td>Various</td>
@@ -362,10 +352,15 @@
           </table>
         </div>
 
-        <div class="scope-notes">
+        <details class="collapsible">
+          <summary><span><span class="section-title">Scope notes</span></span></summary>
+          <div class="collapsible-body">
+<div class="scope-notes">
           <p>Scope note: GLP-1 Phase 1 exposure is limited to Canada and the United States. Other event geographies and examples in this platform view are illustrative monitoring scenarios, not GLP-1 exposure assertions.</p>
-          <p>Open-action KPI is scoped to IRE-26-0142 and reconciles to the five open actions on the event-detail screen.</p>
+          <p>Open-action KPI is scoped to IRE-26-0142 and reconciles to all seven outstanding actions on the Event Detail Page.</p>
         </div>
+          </div>
+        </details>
 
         <footer class="slide-footer">
           <span>UPDATED 12 NOV 2026</span>
@@ -386,18 +381,7 @@
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
-            <button class="btn btn-navy" onclick="exportCSV('market-brief')">Export market brief</button>
-          </div>
-        </div>
-
-        <div class="workflow-wrapper">
-          <div class="workflow-label">WORKFLOW</div>
-          <div class="chevron-bar">
-            <div class="chevron active">1 &nbsp;Signal</div>
-            <div class="chevron">2 &nbsp;Assessment</div>
-            <div class="chevron">3 &nbsp;Review</div>
-            <div class="chevron">4 &nbsp;Action</div>
-            <div class="chevron">5 &nbsp;Closure</div>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
           </div>
         </div>
 
@@ -406,15 +390,15 @@
         </div>
 
         <div class="grid-3">
-          <div class="card kpi-card accent-left-teal">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="feed:all" title="Click to open">
             <div class="kpi-label">MAPPED EVENT GEOGRAPHIES</div>
             <div class="kpi-value kpi-med">08 markets</div>
             <div class="kpi-sub">Across illustrative platform events</div>
           </div>
-          <div class="card kpi-card accent-left-amber">
+          <div class="card kpi-card accent-left-amber kpi-clickable" data-kpi="feed:scored" title="Click to open">
             <div class="kpi-label">MATERIAL MONITORED SIGNALS</div>
-            <div class="kpi-value">04</div>
-            <div class="kpi-sub">Severity 3+ - two pending reviews</div>
+            <div class="kpi-value" id="mapScored">03</div>
+            <div class="kpi-sub" id="mapPendingSub">Severity 3+ - two pending human reviews</div>
           </div>
           <div class="card kpi-card accent-left-navy">
             <div class="kpi-label">COVERAGE IS NOT EXPOSURE</div>
@@ -427,7 +411,7 @@
         <div class="map-layout">
           <div class="map-panel">
             <div class="map-panel-header">
-              <span class="kicker-navy">GLOBAL EVENT GEOGRAPHIES (VECTOR SVG — CLICK MARKERS TO INSPECT)</span>
+              <span class="kicker-navy">GLOBAL EVENT GEOGRAPHIES</span>
               <div class="map-controls">
                 <button class="map-btn" id="zoomInBtn" title="Zoom In">+</button>
                 <button class="map-btn" id="zoomOutBtn" title="Zoom Out">&minus;</button>
@@ -438,6 +422,7 @@
             <div class="map-legend">
               <div class="legend-item"><span class="dot dot-teal"></span> <strong>GLP-1 Phase 1: CA / US</strong></div>
               <div class="legend-item"><span class="dot dot-amber"></span> Other markers: illustrative event geographies</div>
+              <div class="legend-item map-hint">Click a marker to inspect</div>
             </div>
           </div>
 
@@ -449,14 +434,17 @@
               <p class="body-copy" id="focusDesc1">Severity 5 Critical / unvalidated. Mortality stress scenario; low confidence. Severity is not a probability or loss estimate.</p>
               <p class="body-copy" id="focusDesc2">Required human gate: validate the health proxy and mapped product exposure with the designated risk owner. No RI code until validated.</p>
             </div>
-            <div class="focus-next-stage" id="focusNextStage">Next stage: Signal &rarr; Assessment</div>
+            <div>
+              <div class="focus-next-stage" id="focusNextStage">Next stage: Signal &rarr; Assessment</div>
+              <button class="btn btn-teal-sm mt-10" id="focusOpenBtn" data-event="0140">Open event &rarr;</button>
+            </div>
           </div>
         </div>
 
         <div class="section-header-row">
           <div>
             <h2 class="section-title">Market-linked signals + actions</h2>
-            <p class="section-sub">Coverage indicators are not additive; non-CA/US examples are illustrative platform scenarios.</p>
+            <p class="section-sub">Coverage indicators are not additive; IRE-26-0142 actions reconcile to the seven-item Event Detail Page register.</p>
           </div>
         </div>
 
@@ -473,7 +461,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="clickable-row" data-event="0140">
                 <td>IRE-26-0140 Respiratory outbreak</td>
                 <td>CN / MY - B</td>
                 <td>Validate health proxy and exposure</td>
@@ -481,10 +469,10 @@
                 <td>Nov 15</td>
                 <td><span class="badge-pill badge-red">In progress</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-row" data-event="0142">
                 <td>IRE-26-0142 GLP-1 uptake</td>
                 <td>CA / US - A</td>
-                <td>Validate exposure before RI-2</td>
+                <td>Validate CA / US exposure before RI-2</td>
                 <td>Market Risk</td>
                 <td>Nov 15</td>
                 <td><span class="badge-pill badge-teal">In progress</span></td>
@@ -512,18 +500,7 @@
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
-            <button class="btn btn-navy" onclick="exportCSV('watch-register')">Export watch register</button>
-          </div>
-        </div>
-
-        <div class="workflow-wrapper">
-          <div class="workflow-label">WORKFLOW</div>
-          <div class="chevron-bar">
-            <div class="chevron completed">1 &nbsp;Signal</div>
-            <div class="chevron active">2 &nbsp;Assessment</div>
-            <div class="chevron">3 &nbsp;Review</div>
-            <div class="chevron">4 &nbsp;Action</div>
-            <div class="chevron">5 &nbsp;Closure</div>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
           </div>
         </div>
 
@@ -640,26 +617,7 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Prepare verification request</td>
-                    <td>Compliance</td>
-                    <td>Nov 18</td>
-                    <td><span class="badge-pill badge-amber">Open</span></td>
-                  </tr>
-                  <tr>
-                    <td>Confirm MON-CLM scope</td>
-                    <td>Climate Risk</td>
-                    <td>Nov 25</td>
-                    <td><span class="badge-pill badge-slate">Not started</span></td>
-                  </tr>
-                  <tr>
-                    <td>ERC approval / routing</td>
-                    <td>Risk Owner</td>
-                    <td>Nov 25</td>
-                    <td><span class="badge-pill badge-amber">Pending</span></td>
-                  </tr>
-                </tbody>
+                <tbody id="policyTasksBody"></tbody>
               </table>
             </div>
           </div>
@@ -684,18 +642,7 @@
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
-            <button class="btn btn-navy" onclick="exportCSV('implication-brief')">Export implication brief</button>
-          </div>
-        </div>
-
-        <div class="workflow-wrapper">
-          <div class="workflow-label">WORKFLOW</div>
-          <div class="chevron-bar">
-            <div class="chevron completed">1 &nbsp;Signal</div>
-            <div class="chevron active">2 &nbsp;Assessment</div>
-            <div class="chevron">3 &nbsp;Review</div>
-            <div class="chevron">4 &nbsp;Action</div>
-            <div class="chevron">5 &nbsp;Closure</div>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
           </div>
         </div>
 
@@ -704,12 +651,12 @@
         </div>
 
         <div class="grid-3">
-          <div class="card kpi-card accent-left-teal">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="event:0142" title="Click to open">
             <div class="kpi-label">SCORED LONGEVITY SCENARIO</div>
             <div class="kpi-value">01</div>
             <div class="kpi-sub">GLP-1 - L-1 - Medium - pending review</div>
           </div>
-          <div class="card kpi-card accent-left-amber">
+          <div class="card kpi-card accent-left-amber kpi-clickable" data-kpi="feed:scored" title="Click to open">
             <div class="kpi-label">SCORED MORTALITY STRESS</div>
             <div class="kpi-value">02</div>
             <div class="kpi-sub">Extreme heat + respiratory outbreak</div>
@@ -741,7 +688,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="clickable-row" data-event="0142">
                 <td>IRE-26-0142 GLP-1 (CA / US)</td>
                 <td>Down</td>
                 <td>Favourable</td>
@@ -749,7 +696,7 @@
                 <td>3 / Medium</td>
                 <td>Pending - RI-2 only after validation</td>
               </tr>
-              <tr>
+              <tr class="clickable-row" data-event="0141">
                 <td>IRE-26-0141 Extreme heat</td>
                 <td>Up</td>
                 <td>Adverse</td>
@@ -757,7 +704,7 @@
                 <td>4 / Medium</td>
                 <td>Reviewed - human assessment</td>
               </tr>
-              <tr>
+              <tr class="clickable-row" data-event="0140">
                 <td>IRE-26-0140 Outbreak</td>
                 <td>Up?</td>
                 <td>Unvalidated</td>
@@ -765,7 +712,7 @@
                 <td>5 / Low</td>
                 <td>Pending - no RI code until validated</td>
               </tr>
-              <tr>
+              <tr class="clickable-row" data-event="0139">
                 <td>IRE-26-0139 Retirement reform</td>
                 <td>N/A</td>
                 <td>No M/L direction</td>
@@ -773,7 +720,7 @@
                 <td><span class="status-slate">Classified - Not Scored</span></td>
                 <td>Contextual only - no mortality score</td>
               </tr>
-              <tr>
+              <tr class="clickable-row" data-event="0138">
                 <td>IRE-26-0138 Credit spreads</td>
                 <td>N/A</td>
                 <td>No effect inferred</td>
@@ -786,10 +733,9 @@
         </div>
 
         <div class="grid-2-asym">
-          <div>
-            <h2 class="section-title">Verification &amp; approval pathway</h2>
-            <p class="section-sub">Human-led - no automatic obligation or escalation</p>
-            <div class="subgrid-3 mt-10">
+          <details class="collapsible">
+            <summary><span><span class="section-title">Verification &amp; approval pathway</span><span class="section-sub">Human-led - no automatic obligation or escalation</span></span></summary>
+            <div class="collapsible-body"><div class="subgrid-3">
               <div class="card accent-top-amber">
                 <div class="step-title">01 Verify source</div>
                 <p class="step-desc">Compliance / Legal checks primary source text</p>
@@ -805,12 +751,13 @@
                 <p class="step-desc">Accountable owner approves; ERM controls escalation</p>
                 <div class="status-slate mt-8">Gated</div>
               </div>
-            </div>
-          </div>
+            </div></div>
+          </details>
 
           <div>
             <h2 class="section-title">Actions &amp; tasks</h2>
-            <div class="table-wrap mt-24">
+            <p class="section-sub">Selected linked tasks; full seven-action register on Event Detail Page.</p>
+            <div class="table-wrap mt-10">
               <table class="data-table">
                 <thead>
                   <tr>
@@ -820,26 +767,7 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Validate health proxy</td>
-                    <td>Chief Actuary</td>
-                    <td>Nov 15</td>
-                    <td><span class="badge-pill badge-teal">In progress</span></td>
-                  </tr>
-                  <tr>
-                    <td>Review CA / US exposure</td>
-                    <td>Reinsurance</td>
-                    <td>Nov 20</td>
-                    <td><span class="badge-pill badge-slate">Not started</span></td>
-                  </tr>
-                  <tr>
-                    <td>ERC approval / routing</td>
-                    <td>Risk Owner</td>
-                    <td>Nov 25</td>
-                    <td><span class="badge-pill badge-amber">Pending</span></td>
-                  </tr>
-                </tbody>
+                <tbody id="linkedTasksBody"></tbody>
               </table>
             </div>
           </div>
@@ -864,18 +792,7 @@
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
-            <button class="btn btn-navy" onclick="exportCSV('relationship-log')">Export relationship log</button>
-          </div>
-        </div>
-
-        <div class="workflow-wrapper">
-          <div class="workflow-label">WORKFLOW</div>
-          <div class="chevron-bar">
-            <div class="chevron completed">1 &nbsp;Signal</div>
-            <div class="chevron active">2 &nbsp;Assessment</div>
-            <div class="chevron">3 &nbsp;Review</div>
-            <div class="chevron">4 &nbsp;Action</div>
-            <div class="chevron">5 &nbsp;Closure</div>
+            <button class="btn btn-navy" data-goto="7">Open Event Detail</button>
           </div>
         </div>
 
@@ -884,9 +801,9 @@
         </div>
 
         <div class="grid-3">
-          <div class="card kpi-card accent-left-teal">
+          <div class="card kpi-card accent-left-teal kpi-clickable" data-kpi="feed:scored" title="Click to open">
             <div class="kpi-label">SCORED EVENT NODES</div>
-            <div class="kpi-value">03 / 08</div>
+            <div class="kpi-value" id="graphScored">03 / 08</div>
             <div class="kpi-sub">Three scored nodes in this view</div>
           </div>
           <div class="card kpi-card accent-left-amber">
@@ -894,9 +811,9 @@
             <div class="kpi-value">05</div>
             <div class="kpi-sub">H4 / H5 are contextual, not scored</div>
           </div>
-          <div class="card kpi-card accent-left-red">
+          <div class="card kpi-card accent-left-red kpi-clickable" data-kpi="feed:pending" title="Click to open">
             <div class="kpi-label">PENDING EVENT VALIDATIONS</div>
-            <div class="kpi-value">02</div>
+            <div class="kpi-value" id="graphPending">02</div>
             <div class="kpi-sub">Human gates remain open</div>
           </div>
         </div>
@@ -912,35 +829,35 @@
 
             <div class="graph-rows" id="graphRows">
               <div class="graph-row selected" data-hyp="H1">
-                <div class="node-navy">0142 GLP-1 uptake</div>
+                <div class="node-navy" data-event="0142" title="Open event IRE-26-0142">0142 GLP-1 uptake</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-teal">H1 - Survival improvement</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-white">Protection / annuity effects</div>
               </div>
               <div class="graph-row" data-hyp="H2">
-                <div class="node-navy">0141 Extreme heat</div>
+                <div class="node-navy" data-event="0141" title="Open event IRE-26-0141">0141 Extreme heat</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-teal">H2 - Higher mortality</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-white">Protection adverse</div>
               </div>
               <div class="graph-row" data-hyp="H3">
-                <div class="node-navy">0140 Respiratory outbreak</div>
+                <div class="node-navy" data-event="0140" title="Open event IRE-26-0140">0140 Respiratory outbreak</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-teal">H3 - Mortality stress</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-white">Annuity stress - conditional</div>
               </div>
               <div class="graph-row" data-hyp="H4">
-                <div class="node-navy">0139 Retirement reform</div>
+                <div class="node-navy" data-event="0139" title="Open event IRE-26-0139">0139 Retirement reform</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-slate">H4 - Policy / demand</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-muted">Classified - Not Scored</div>
               </div>
               <div class="graph-row" data-hyp="H5">
-                <div class="node-navy">0138 Credit spreads</div>
+                <div class="node-navy" data-event="0138" title="Open event IRE-26-0138">0138 Credit spreads</div>
                 <div class="dashed-arrow"></div>
                 <div class="node-slate">H5 - Investment sensitivity</div>
                 <div class="dashed-arrow"></div>
@@ -962,14 +879,14 @@
               <div><strong>Net effect:</strong> Uncertain</div>
             </div>
             <p class="body-copy mt-10" id="hypFoot">Shared geography or a plausible pathway is not evidence of dependence.</p>
+            <button class="btn btn-teal-sm mt-10" id="hypOpenBtn" data-event="0142">Open event &rarr;</button>
           </div>
         </div>
 
-        <div class="section-header-row">
-          <h2 class="section-title">Relationship hypothesis register and actions</h2>
-        </div>
-
-        <div class="table-wrap">
+        <details class="collapsible">
+          <summary><span><span class="section-title">Relationship hypothesis register and actions</span><span class="section-sub">2 tracked paths</span></span></summary>
+          <div class="collapsible-body">
+<div class="table-wrap">
           <table class="data-table">
             <thead>
               <tr>
@@ -982,7 +899,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="clickable-row" data-event="0142">
                 <td>H1</td>
                 <td>0142 GLP-1 &rarr; survival</td>
                 <td>Validate CA / US exposure before RI-2</td>
@@ -990,7 +907,7 @@
                 <td>Nov 15</td>
                 <td><span class="badge-pill badge-teal">In progress</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-row" data-event="0140">
                 <td>H3</td>
                 <td>0140 Outbreak &rarr; mortality stress</td>
                 <td>No RI code until health proxy is validated</td>
@@ -1001,6 +918,8 @@
             </tbody>
           </table>
         </div>
+          </div>
+        </details>
 
         <footer class="slide-footer">
           <span>UPDATED 12 NOV 2026</span>
@@ -1016,8 +935,8 @@
         <div class="page-header">
           <div>
             <div class="page-meta">Updated 12 Nov 2026 &nbsp;|&nbsp; Phase 1 GLP-1 markets: Canada and United States</div>
-            <h1 class="page-title">IRE-26-0142 - GLP-1 uptake forecast</h1>
-            <p class="page-subtitle">Overview / Active Risk Feed / IRE-26-0142 - L-1 Medical Breakthrough - Tier A - Canada / US - Assessment</p>
+            <h1 class="page-title" id="eventTitle">Event Detail Page - IRE-26-0142</h1>
+            <p class="page-subtitle"><span id="eventBreadcrumb">Overview / Active Risk Feed / Selected event IRE-26-0142 / Review - pending</span></p>
           </div>
           <div class="page-actions">
             <span class="pill pill-teal">Phase 1 / proxy data</span>
@@ -1025,17 +944,14 @@
           </div>
         </div>
 
-        <div class="workflow-wrapper">
-          <div class="workflow-label">WORKFLOW</div>
-          <div class="chevron-bar">
-            <div class="chevron completed">1 &nbsp;Signal</div>
-            <div class="chevron completed">2 &nbsp;Assessment</div>
-            <div class="chevron active">3 &nbsp;Review</div>
-            <div class="chevron">4 &nbsp;Action</div>
-            <div class="chevron">5 &nbsp;Closure</div>
-          </div>
+        <!-- STAGE BAR: rendered from the selected event's actual stage (hidden for classified items) -->
+        <div class="workflow-wrapper" id="eventStageWrap">
+          <div class="workflow-label" id="eventStageLabel">CURRENT EVENT STAGE: REVIEW</div>
+          <div class="chevron-bar" id="eventStageBar"></div>
         </div>
+        <div class="disclaimer-bar" id="eventStageNote" hidden></div>
 
+        <div id="eventDetail0142">
         <!-- 5-STAGE EVENT-TO-DECISION CARDS -->
         <div class="grid-5">
           <div class="card accent-top-teal">
@@ -1109,7 +1025,10 @@
               </table>
             </div>
 
-            <div class="trace-box">
+            <details class="collapsible">
+          <summary><span><span class="section-title">Scoring trace &amp; assessment review</span><span class="section-sub">How the central score was derived</span></span></summary>
+          <div class="collapsible-body">
+<div class="trace-box">
               <p><strong>TRACE: Central impact = floor((C-2 + C-3)/2) = floor((4+3)/2) = 3; plausible impact range = 3-4.</strong></p>
               <p>Likelihood C-5 = 3; central raw index = 3 &times; 3 = 9/25; plausible raw range = 9-12/25.</p>
               <p>Current RISC lookup: central class 3 Significant; plausible class range 3-4. Confirm against approved lookup matrix.</p>
@@ -1117,15 +1036,18 @@
 
             <div class="card mt-8">
               <div class="kicker-navy">ASSESSMENT REVIEW</div>
-              <p class="small-copy">C-4 = 2 assumes lower scores represent longer horizons; 5-10 years is not near-term. Confirm rubric direction; reassess if the horizon moves inside 5 years.</p>
+              <p class="small-copy">C-4 = 2 assumes lower scores represent longer horizons; 5-10 years is not near-term.</p>
+              <p class="small-copy">Confirm rubric direction; reassess if the horizon moves inside 5 years.</p>
             </div>
+          </div>
+        </details>
           </div>
 
           <div>
             <div class="section-header-row no-margin">
               <div>
                 <h2 class="section-title">Actions &amp; tasks for this event</h2>
-                <p class="section-sub" id="actionsSubtitle">Five open actions - reconciles to dashboard KPI</p>
+                <p class="section-sub" id="actionsSubtitle">Seven open actions - one event-level register across all screens</p>
               </div>
               <button class="btn btn-teal-sm" id="approveAssessmentBtn">Approve Assessment (A. Chen)</button>
             </div>
@@ -1140,55 +1062,52 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Validate portfolio exposure</td>
-                    <td>Market Risk</td>
-                    <td>Nov 15</td>
-                    <td><span class="badge-pill badge-teal">In progress</span></td>
-                  </tr>
-                  <tr>
-                    <td>Confirm source attribution</td>
-                    <td>Risk Owner</td>
-                    <td>Nov 12</td>
-                    <td><span class="badge-pill badge-amber">Open</span></td>
-                  </tr>
-                  <tr>
-                    <td>Review CA / US annuity assumptions</td>
-                    <td>Actuarial</td>
-                    <td>Nov 20</td>
-                    <td><span class="badge-pill badge-amber">Open</span></td>
-                  </tr>
-                  <tr>
-                    <td>Approve assessment</td>
-                    <td>Chief Actuary</td>
-                    <td>Nov 22</td>
-                    <td id="approvalCell"><span class="badge-pill badge-amber">Pending</span></td>
-                  </tr>
-                  <tr>
-                    <td>Close event and log rationale</td>
-                    <td>ERM</td>
-                    <td>Nov 30</td>
-                    <td><span class="badge-pill badge-slate">Not started</span></td>
-                  </tr>
-                </tbody>
+                <tbody id="eventActionsBody"></tbody>
               </table>
             </div>
 
-            <div class="card mt-12">
-              <h3 class="card-heading">Assessment history</h3>
-              <ul class="history-list" id="assessmentHistoryList">
-                <li>v1.0 - Proxy assessment generated.</li>
-                <li>Updated C-3 to 3 (range 3-4); C-4 retained at 2 pending rubric confirmation.</li>
-                <li>Reviewer: A. Chen - validation pending. Archive only after closure.</li>
+            <details class="collapsible">
+          <summary><span><span class="section-title">Assessment history</span><span class="section-sub">Version log</span></span></summary>
+          <div class="collapsible-body">
+<ul class="history-list" id="assessmentHistoryList">
+                <li>v1.0 proxy assessment generated; C-3 updated to 3 (range 3-4).</li>
+                <li>C-4 retained at 2 pending rubric confirmation; reviewer A. Chen; archive only after closure.</li>
               </ul>
+          </div>
+        </details>
+          </div>
+        </div>
+
+        </div>
+
+        <!-- OTHER EVENTS: summary + linked actions (same hub page, driven by the event registry) -->
+        <div id="eventDetailGeneric" hidden>
+          <div class="grid-2-equal">
+            <div class="card accent-top-teal" id="genericFactsCard">
+              <div class="kicker-slate" id="genKicker"></div>
+              <h2 class="focus-title" id="genTitle"></h2>
+              <div class="meta-stack" id="genMeta"></div>
+              <p class="body-copy mt-10" id="genNote"></p>
+            </div>
+            <div>
+              <h2 class="section-title">Actions &amp; tasks for this event</h2>
+              <p class="section-sub" id="genActionsSubtitle"></p>
+              <div class="table-wrap mt-8">
+                <table class="data-table" id="genericActionsTable">
+                  <thead>
+                    <tr><th>Action</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+                  </thead>
+                  <tbody id="genericActionsBody"></tbody>
+                </table>
+              </div>
+              <p class="italic-caption" id="genActionsEmpty" hidden>No linked actions in the Phase 1 wireframes.</p>
             </div>
           </div>
         </div>
 
         <footer class="slide-footer">
           <span>UPDATED 12 NOV 2026</span>
-          <span>GLP-1 Phase 1 markets: Canada / US only. Five open actions remain human-owned.</span>
+          <span id="footerOpenActions">GLP-1 Phase 1 markets: Canada / US only. Seven open actions remain human-owned.</span>
           <span>Wireframe 7 of 7</span>
         </footer>
       </section>
